@@ -1,160 +1,278 @@
-<!-- ======================================
-     DRIBBBLE STYLE FASHION SLIDER
-======================================= -->
-
-<!-- Swiper CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
 <style>
-    .fashion-slider {
-       
-        max-width: 100%;
-        height: 840px;
-        border-radius: 20px;
-        overflow: hidden;
-        background: #f7f7f7;
+    /* Reset and general styles for demonstration */
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+    .swiper {
+        width: 100%;
+        height: 100vh; /* Full viewport height on desktop */
     }
 
-    .fashion-slide {
+    /* Style for each slide */
+    .swiper-slide {
         display: flex;
+        justify-content: center;
         align-items: center;
-        justify-content: space-between;
-        padding: 70px;
+        position: relative;
+        color: #fff; /* White text for contrast on dark background */
+        text-align: center;
     }
 
-    .fashion-text {
-        max-width: 45%;
+    /* Video background styling */
+    .fashion-video-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensures the video covers the entire slide */
+        z-index: 1;
     }
 
-    .fashion-text h1 {
-        font-size: 58px;
+    /* Dark overlay for better text readability */
+    .fashion-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent black overlay */
+        z-index: 2;
+    }
+
+    /* Text content styling */
+    .fashion-content {
+        position: relative;
+        z-index: 3;
+        padding: 20px;
+        max-width: 800px;
+        align-self:end;
+        margin-bottom:5rem;
+        
+    }
+
+    /* Responsive Font Size for Header */
+    .fashion-content h1 {
+        font-size: 4vw; /* Use vw for responsive size */
         font-weight: 700;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         line-height: 1.1;
     }
 
-    .fashion-text p {
-        font-size: 20px;
-        opacity: 0.8;
-        margin-bottom: 25px;
+    /* Responsive Font Size for Paragraph */
+    .fashion-content p {
+        font-size: 1vw; /* Use vw for responsive size */
+        margin-bottom: 20px;
+        opacity: 0.9;
     }
 
     .fashion-btn {
-        padding: 12px 32px;
-        background: #000;
-        color: #fff;
+        padding: 12px 35px;
+        background: #fff; 
+        color: #000;
         text-decoration: none;
-        border-radius: 50px;
+        border-radius: 5px; 
         font-size: 18px;
+        font-weight: 600;
+        transition: background 0.3s;
+    }
+    
+    .fashion-btn:hover {
+        background: #e0e0e0;
     }
 
-    .fashion-img {
-        width: 50%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 20px;
-    }
-
-    .swiper-pagination-bullet {
-        background: #000 !important;
-    }
-
+    /* Navigation Arrows - Styled for a full-screen dark look */
     .swiper-button-next,
     .swiper-button-prev {
-        color: #000 !important;
+        color: #fff !important; 
+        border: 1px solid #fff;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        transition: background 0.3s;
+        /* Positioned for desktop */
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+        font-size: 15px !important;
+    }
+
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .swiper-button-prev {
+        left: 50px; 
+    }
+
+    .swiper-button-next {
+        right: 50px; 
+    }
+
+    /* Hide pagination as it's not visible in the image's style */
+    .swiper-pagination {
+        display: none;
+    }
+    
+    /* =========================
+       RESPONSIVE MEDIA QUERIES
+       ========================= */
+
+    @media (max-width: 1024px) {
+        /* Tablet adjustments */
+        .swiper-button-prev {
+            left: 20px;
+        }
+        .swiper-button-next {
+            right: 20px;
+        }
     }
 
     @media (max-width: 768px) {
-        .fashion-slide {
-            flex-direction: column;
-            padding: 40px 20px;
-            text-align: center;
+        /* Mobile adjustments */
+        .swiper {
+            height: 70vh; /* Smaller height on mobile to save screen space */
         }
-        .fashion-text {
-            max-width: 90%;
-        }
-        .fashion-img {
-            width: 100%;
-            height: auto;
-            margin-top: 20px;
-        }
-        .fashion-text h1 {
+        
+        /* Fixed, larger font sizes for mobile to ensure legibility */
+        .fashion-content h1 {
             font-size: 36px;
+        }
+        .fashion-content p {
+            font-size: 16px;
+        }
+        
+        /* Smaller navigation arrows and closer to the edges */
+        .swiper-button-next,
+        .swiper-button-prev {
+             width: 40px;
+             height: 40px;
+             border-width: 2px;
+        }
+        .swiper-button-prev {
+            left: 10px;
+        }
+        .swiper-button-next {
+            right: 10px;
+        }
+        
+        .fashion-btn {
+            padding: 10px 25px;
+            font-size: 16px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        /* Very small screens */
+        .fashion-content {
+            padding: 10px;
+        }
+        .fashion-content h1 {
+            font-size: 30px;
+        }
+        .swiper-button-next,
+        .swiper-button-prev {
+             display: none; /* Hide arrows on smallest screens if preferred */
         }
     }
 </style>
 
-
-<div class="container d-flex justify-content-center mt-0">
-  <div class="swiper fashion-slider">
+<div class="swiper fashion-hero-slider">
 
     <div class="swiper-wrapper">
 
-      <!-- Slide 1 -->
-      <div class="swiper-slide fashion-slide">
-        <div class="fashion-text">
-          <h1>Minimal Street Fashion</h1>
-          <p>Explore curated looks that blend comfort and luxury.</p>
-          <a href="#" class="fashion-btn">Shop Now</a>
+        <div class="swiper-slide">
+            <video class="fashion-video-background" autoplay loop muted playsinline poster="">
+                <source src="https://worldofinanna.org/wp-content/uploads/2025/11/innana-curvy.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="fashion-overlay"></div>
+            <div class="fashion-content">
+                <h1>Fashion with Purpose</h1>
+                <p>Explore our limited edition collection that champions sustainable style.</p>
+                <a href="#" class="fashion-btn">SHOP NOW</a>
+            </div>
         </div>
-        <img src="https://images.unsplash.com/photo-1520975918318-d50340cadfcc" class="fashion-img" />
-      </div>
 
-      <!-- Slide 2 -->
-      <div class="swiper-slide fashion-slide">
-        <div class="fashion-text">
-          <h1>Luxury Women's Wear</h1>
-          <p>A new era of elegance and bold silhouettes.</p>
-          <a href="#" class="fashion-btn">Discover</a>
+        <div class="swiper-slide">
+            <video class="fashion-video-background" autoplay loop muted playsinline poster="">
+                <source src="https://worldofinanna.org/wp-content/uploads/2025/11/innana-curvy.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="fashion-overlay"></div>
+            <div class="fashion-content">
+                <h1>The New Era of Luxury</h1>
+                <p>Discover bold silhouettes and exclusive handcrafted pieces.</p>
+                <a href="#" class="fashion-btn">DISCOVER</a>
+            </div>
         </div>
-        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d" class="fashion-img" />
-      </div>
 
-      <!-- Slide 3 -->
-      <div class="swiper-slide fashion-slide">
-        <div class="fashion-text">
-          <h1>Urban Winter Essentials</h1>
-          <p>Style meets comfort in our winter edit.</p>
-          <a href="#" class="fashion-btn">View Collection</a>
-        </div>
-        <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f" class="fashion-img" />
-      </div>
+        <!-- <div class="swiper-slide">
+            <video class="fashion-video-background" autoplay loop muted playsinline poster="">
+                <source src="https://dummy-video-url-3.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="fashion-overlay"></div>
+            <div class="fashion-content">
+                <h1>Unleash Your Urban Edge</h1>
+                <p>Streetwear redefined with modern tailoring and comfortable fits.</p>
+                <a href="#" class="fashion-btn">VIEW COLLECTION</a>
+            </div>
+        </div> -->
 
     </div>
 
-    <!-- Pagination -->
-    <div class="swiper-pagination"></div>
-
-    <!-- Navigation Arrows -->
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
 
-  </div>
 </div>
 
 
-<!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
-  var swiper = new Swiper(".fashion-slider", {
-    loop: true,
-    autoplay: {
-      delay: 2600,
-      disableOnInteraction: false,
-    },
-    speed: 900,
-    effect: "fade",
-    fadeEffect: {
-      crossFade: true,
-    },
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-  });
+    var swiper = new Swiper(".fashion-hero-slider", {
+        loop: true,
+        autoplay: {
+            delay: 9000, 
+            disableOnInteraction: false,
+        },
+        speed: 1200, 
+        effect: "fade",
+        fadeEffect: {
+            crossFade: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        on: {
+            init: function () {
+                var activeVideo = this.slides[this.activeIndex].querySelector('.fashion-video-background');
+                if (activeVideo) {
+                    activeVideo.play();
+                }
+            },
+            slideChangeTransitionStart: function () {
+                var videos = this.el.querySelectorAll('.fashion-video-background');
+                videos.forEach(video => {
+                    video.pause();
+                    video.currentTime = 0; 
+                });
+            },
+            slideChangeTransitionEnd: function () {
+                var activeVideo = this.slides[this.activeIndex].querySelector('.fashion-video-background');
+                if (activeVideo) {
+                    activeVideo.play();
+                }
+            }
+        }
+    });
 </script>

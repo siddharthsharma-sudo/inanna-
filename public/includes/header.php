@@ -60,7 +60,7 @@
            NAVBAR (DESKTOP + MOBILE)
         ------------------------------------ */
         .main-navbar {
-            height: 120px;
+            height: 80px;
             background: #fff !important;
             border-bottom: 1px solid #e5e5e5;
         }
