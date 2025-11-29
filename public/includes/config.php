@@ -18,7 +18,16 @@ return [
     // ------------------------------------
     // SMTP EMAIL CONFIGURATION (GMAIL)
     // ------------------------------------
-   
+    'mail' => [
+        'smtp_host' => 'smtp.gmail.com',
+        'smtp_port' => 587,
+        'smtp_user' => 'YOUR_GMAIL_ADDRESS@gmail.com',     // your Gmail
+        'smtp_pass' => 'YOUR_16_CHAR_APP_PASSWORD',        // Gmail App Password (not normal password)
+
+        // The email sender info shown to users
+        'from_email' => 'no-reply@yourdomain.com',         // or same as your Gmail
+        'from_name'  => 'Inanna Shop',
+    ],
 
     // ------------------------------------
     // FUTURE FEATURE (WhatsApp/Twilio)
