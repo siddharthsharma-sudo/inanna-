@@ -204,15 +204,12 @@ if (file_exists(__DIR__ . '/bare-essence.php')) {
 if (file_exists(__DIR__ . '/scrollable.php')) {
     require __DIR__ . '/scrollable.php';
 }
+if (file_exists(__DIR__ . '/two-col-slider.php')) {
+    require __DIR__ . '/two-col-slider.php';
+}
 ?>
 
-<div class="py-5 text-center">
-  <div class="container">
-     <h1 class="display-5">Welcome to My Shop</h1>
-    <p class="lead">This is the homepage. Replace this content with your homepage HTML.</p>
-    <p><a href="products.php" class="btn btn-primary">View Products</a></p>
-  </div>
-</div>
+
 
 <?php
 // include footer
