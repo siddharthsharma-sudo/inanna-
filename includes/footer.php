@@ -10,20 +10,20 @@
             <div class="footer-column">
                 <h3 class="column-title">About</h3>
                 <ul class="link-list">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">WOI</a></li>
-                    <li><a href="#">Appointment</a></li>
-                    <li><a href="#">Shop</a></li>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="woi.php">WOI</a></li>
+                    <li><a href="appointment.php">Appointment</a></li>
+                    <li><a href="products.php">Shop</a></li>
                 </ul>
             </div>
 
             <div class="footer-column">
                 <h3 class="column-title">Consumer Policy</h3>
                 <ul class="link-list">
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Refund and Returns Policy</a></li>
-                    <li><a href="#">Shipping and Handling Policy</a></li>
+                    <li><a href="privacy-policy.php">Privacy Policy</a></li>
+                    <li><a href="terms-condition.php">Terms & Conditions</a></li>
+                    <li><a href="return-refund.php">Refund and Returns Policy</a></li>
+                    <li><a href="shipping-and-handling-policy.php">Shipping and Handling Policy</a></li>
                 </ul>
             </div>
 

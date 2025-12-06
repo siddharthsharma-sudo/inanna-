@@ -10,8 +10,11 @@
     
         <div class="swiper-wrapper">
 
-            <div class="swiper-slide">
-                <img class="fashion-image-background" src="assets/images/hero-banner-slide-1.avif" alt="Cultural Elegance">
+            <div class="swiper-slide" aria-label="Slide 1">
+        <video class="fashion-video-background" muted playsinline loop preload="metadata" aria-hidden="true">
+          <source data-src="assets/video/1.mp4" type="video/mp4">
+        </video>
+        <div class="fashion-overlay" aria-hidden="true"></div>
                 <div class="fashion-overlay"></div>
                 <div class="fashion-content">
                     <div class="hero-tagline">NEW TREND</div>
@@ -26,7 +29,9 @@
             </div>
 
             <div class="swiper-slide">
-                <img class="fashion-image-background" src="assets/images/slider-3.webp" alt="Fashion With Purpose">
+            <video class="fashion-video-background" muted playsinline loop preload="metadata" aria-hidden="true">
+          <source data-src="assets/video/2.mp4" type="video/mp4">
+        </video>
                 <div class="fashion-overlay"></div>
                 <div class="fashion-content">
                     <div class="hero-tagline">A PRESENCE YOU DON'T FOLLOW UP WITH.</div>
@@ -41,7 +46,9 @@
             </div>
 
             <div class="swiper-slide">
-                <img class="fashion-image-background" src="assets/images/no-plus-one-banner.webp" alt="Timeless Elegance">
+            <video class="fashion-video-background" muted playsinline loop preload="metadata" aria-hidden="true">
+          <source data-src="assets/video/3.mp4" type="video/mp4">
+        </video>
                 <div class="fashion-overlay"></div>
                 <div class="fashion-content">
                     <div class="hero-tagline">THE NEW COLLECTION: NO PLUS ONE.</div>
@@ -94,39 +101,102 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Initialize Swiper
-        var swiper = new Swiper(".fashion-hero-slider", {
-            loop: true,
-            autoplay: {
-                delay: 7000, 
-                disableOnInteraction: false,
-            },
-            speed: 1200, 
-            effect: "fade",
-            fadeEffect: {
-                crossFade: true,
-            },
-            navigation: {
-                nextEl: ".hero-arrow-next",
-                prevEl: ".hero-arrow-prev",
-            },
-            pagination: {
-                el: ".hero-pagination",
-                type: "bullets",
-                clickable: true,
-                renderBullet: function (index, className) {
-                    return '<span class="' + className + ' hero-bullet"><span class="hero-bullet-fill"></span></span>';
-                }
-            },
-            on: {
-                init: function () {
-                    const pag = document.querySelector('.hero-pagination');
-                    if (pag) {
-                        pag.style.setProperty('--bullet-duration', this.params.autoplay.delay + 'ms');
-                    }
-                }
-            }
-        });
+document.addEventListener('DOMContentLoaded', function () {
+  // Load sources from data-src -> src, mark as loaded
+  function loadVideo(video) {
+    if (!video || video.dataset.loaded === 'true') return;
+    const sources = video.querySelectorAll('source[data-src]');
+    sources.forEach(s => {
+      s.src = s.getAttribute('data-src');
+      s.removeAttribute('data-src');
     });
+    try { video.load(); } catch(e){}
+    video.dataset.loaded = 'true';
+  }
+
+  // Play only index's video; pause others and reset
+  function playOnlyActive(swiper, index) {
+    swiper.slides.forEach((slide, i) => {
+      const v = slide.querySelector('video.fashion-video-background');
+      if (!v) return;
+      if (i === index) {
+        loadVideo(v);
+        // ensure muted and try to play
+        v.muted = true;
+        const p = v.play();
+        if (p && p.then) {
+          p.catch(()=>{/* autoplay blocked */});
+        }
+      } else {
+        try { v.pause(); v.currentTime = 0; } catch(e){}
+      }
+    });
+  }
+
+  var swiper = new Swiper('.fashion-hero-slider', {
+    loop: true,
+    autoplay: { delay: 5000, disableOnInteraction: false },
+    speed: 900,
+    effect: 'fade',
+    fadeEffect: { crossFade: true },
+    navigation: { nextEl: '.hero-arrow-next', prevEl: '.hero-arrow-prev' },
+    pagination: {
+      el: '.hero-pagination',
+      type: 'bullets',
+      clickable: true,
+      renderBullet: function(index, className) {
+        return '<span class="' + className + ' hero-bullet"></span>';
+      }
+    },
+    on: {
+      init: function() {
+        playOnlyActive(this, this.activeIndex);
+      },
+      slideChangeTransitionStart: function() {
+        playOnlyActive(this, this.activeIndex);
+      },
+      autoplayStop: function() {
+        document.querySelectorAll('video.fashion-video-background').forEach(v=>{try{v.pause();}catch(e){}});
+      },
+      autoplayStart: function() {
+        playOnlyActive(this, this.activeIndex);
+      }
+    }
+  });
+
+  // Pause autoplay when user interacts with navigation for accessibility
+  document.querySelectorAll('.hero-arrow').forEach(btn => {
+    btn.addEventListener('focus', () => { try{ swiper.autoplay.stop(); }catch(e){} });
+    btn.addEventListener('blur',  () => { try{ swiper.autoplay.start(); }catch(e){} });
+  });
+
+  // free video memory on pagehide
+  window.addEventListener('pagehide', () => {
+    document.querySelectorAll('video.fashion-video-background').forEach(v => {
+      try { v.pause(); v.src = ''; } catch(e){}
+    });
+  });
+});
 </script>
+<style>
+/* Minimal styles for video-only hero */
+#hero { position: relative; }
+.fashion-hero-slider { position: relative; overflow: hidden; }
+.swiper-slide { position: relative; min-height: 70vh; }
+
+/* video fills slide */
+.fashion-video-background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* optional subtle overlay to keep contrast for UI elements */
+.fashion-overlay { position:absolute; inset:0; background: rgba(0,0,0,0.12); z-index:1; }
+
+/* ensure arrow buttons are clickable and visible */
+.hero-arrow { background: transparent; border: 0; cursor: pointer; }
+</style>

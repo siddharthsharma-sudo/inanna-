@@ -304,7 +304,7 @@ function closeSidebar() {
   var logo = document.getElementById('navLogo');
   var ticking = false;
   var path = window.location.pathname.split('/').pop(); 
-var isHome = (path === '' || path === 'index.php');
+var isHome = (path === '' || path === '');
 
   function applyTransform(y){
     if (!logo) return;

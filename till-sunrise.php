@@ -39,6 +39,8 @@ include __DIR__ . '/includes/header.php';
     grid-template-columns: 7fr 5fr;
     gap: 16px;
   }
+
+
 }
 
 /* ------------------------------
@@ -82,6 +84,8 @@ include __DIR__ . '/includes/header.php';
   .collage-desktop {
     display: none;
   }
+
+  
 }
 
 .img-large {
@@ -142,6 +146,21 @@ include __DIR__ . '/includes/header.php';
   .collage-mobile {
     display: none;
   }
+
+  
+}
+
+@media(max-width:768px){
+    .mobile-large img,
+.mobile-small img {
+  width: 100%;
+  height: 100%;
+  filter: none !important;
+}
+
+.mobile-small img{
+  object-fit:cover !important;
+}
 }
 
 .mobile-large {

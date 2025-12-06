@@ -163,10 +163,7 @@
 
     <div class="grain"></div>
 
-    <!-- Dummy Scroll Space Above -->
-    <!-- <section class="spacer">
-        <h1 style="font-family: 'Cinzel'; font-size: 3rem; color: #333;">SCROLL DOWN</h1>
-    </section> -->
+    
 
     <!-- RUNWAY SECTION -->
     <section class="runway-section" id="runway">
@@ -182,13 +179,13 @@
                 <!-- Product 1 -->
                 <div class="runway-item">
                     <div class="img-container">
-                        <img src="assets/images/img5.avif" alt="Obsidian Drape">
+                        <img src="assets/images/img5.avif" alt="Golden Hour Silk-Net Saree">
                         <div class="spotlight" aria-hidden="true"></div>
                     </div>
                     <div class="item-info">
                         <div>
-                            <h4>Obsidian Drape</h4>
-                            <span class="category">Couture</span>
+                            <h4>Golden Hour Silk-Net Saree</h4>
+                            <span class="category">Saree</span>
                         </div>
                         
                     </div>
@@ -197,12 +194,12 @@
                 <!-- Product 2 -->
                 <div class="runway-item">
                     <div class="img-container">
-                        <img src="assets/images/img4.avif" alt="Ivory Structure">
+                        <img src="assets/images/img4.avif" alt="The IT Girl">
                         <div class="spotlight" aria-hidden="true"></div>
                     </div>
                     <div class="item-info">
                         <div>
-                            <h4>Ivory Structure</h4>
+                            <h4>The IT Girl</h4>
                             <span class="category">Ready-to-Wear</span>
                         </div>
                         
@@ -212,13 +209,13 @@
                 <!-- Product 3 -->
                 <div class="runway-item">
                     <div class="img-container">
-                        <img src="assets/images/img3.webp" alt="Gold Dust Gown">
+                        <img src="assets/images/img3.webp" alt="Mandala Muse Cotton-Linen Set">
                         <div class="spotlight" aria-hidden="true"></div>
                     </div>
                     <div class="item-info">
                         <div>
-                            <h4>Gold Dust Gown</h4>
-                            <span class="category">Couture</span>
+                            <h4>Mandala Muse Cotton-Linen Set</h4>
+                            <span class="category">Ready-to-Wear</span>
                         </div>
                        
                     </div>
@@ -227,13 +224,13 @@
                 <!-- Product 4 -->
                 <div class="runway-item">
                     <div class="img-container">
-                        <img src="assets/images/img2.avif" alt="Crimson Veil">
+                        <img src="assets/images/img2.avif" alt="Tidal Romance Co-ord ">
                         <div class="spotlight" aria-hidden="true"></div>
                     </div>
                     <div class="item-info">
                         <div>
-                            <h4>Crimson Veil</h4>
-                            <span class="category">Accessories</span>
+                            <h4>Tidal Romance Co-ord </h4>
+                            <span class="category">Co-ord Set</span>
                         </div>
                         
                     </div>
@@ -242,12 +239,12 @@
                 <!-- Product 5 -->
                 <div class="runway-item">
                     <div class="img-container">
-                        <img src="assets/images/img1.avif" alt="Void Blazer">
+                        <img src="assets/images/img1.avif" alt="Lunar Lines Split Set">
                         <div class="spotlight" aria-hidden="true"></div>
                     </div>
                     <div class="item-info">
                         <div>
-                            <h4>Void Blazer</h4>
+                            <h4>Lunar Lines Split Set</h4>
                             <span class="category">Outerwear</span>
                         </div>
                        
@@ -257,12 +254,12 @@
                  <!-- Product 6 -->
                  <div class="runway-item">
                     <div class="img-container">
-                        <img src="assets/images/noplus/fb-2.webp" alt="Lunar Silk">
+                        <img src="assets/images/noplus/fb-2.webp" alt="Golden hour heiress">
                         <div class="spotlight" aria-hidden="true"></div>
                     </div>
                     <div class="item-info">
                         <div>
-                            <h4>Lunar Silk</h4>
+                            <h4>Golden hour heiress</h4>
                             <span class="category">Dresses</span>
                         </div>
                        

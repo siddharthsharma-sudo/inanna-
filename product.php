@@ -272,8 +272,8 @@ include __DIR__ . '/includes/header.php';
     color: #fff !important;
   }
 
-  .product-card { border-radius:12px; overflow:visible; }
-  .product-main-img { width:100%; max-height:520px; object-fit:cover; border-radius:10px; background:#fafafa; display:block; }
+  .product-card { border-radius:12px; overflow:visible;width: fit-content; }
+  .product-main-img { width:100%; max-height:520px; object-fit:contain; border-radius:10px; background:#fafafa; display:block; }
   .thumb { height:72px; width:72px; object-fit:cover; border-radius:8px; border:1px solid #e9ecef; cursor:pointer; transition:transform .12s ease, box-shadow .12s ease; }
   .thumb:hover { transform:translateY(-4px); box-shadow:0 6px 18px rgba(15,23,42,0.06); }
   .thumb.active { outline:3px solid #0d6efd; box-shadow:0 8px 24px rgba(13,110,253,0.12); }

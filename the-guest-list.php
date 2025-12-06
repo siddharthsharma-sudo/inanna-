@@ -1131,12 +1131,22 @@ include __DIR__ . '/includes/header.php';
     justify-content: center;
   }
 
+  .img-block img{
+    filter:none;
+  }
+
   .img-left {
     margin-top: 30px;
+    
   }
 
   .img-right {
     margin-top: 0px;
+    
+  }
+
+   .style-image{
+    filter:none;
   }
 }
 
@@ -1152,6 +1162,22 @@ include __DIR__ . '/includes/header.php';
 
   .img-left {
     margin-top: 25px;
+    
+  }
+
+  .img-block img{
+    filter:none;
+  }
+  
+  .style-image{
+    filter:none;
+  }
+
+  .spotlight{
+    gap:3rem;
+  }
+  .btn-primary{
+    background: #eaeaea;
   }
 }
 </style>
@@ -1495,6 +1521,7 @@ include __DIR__ . '/includes/header.php';
 
   <script>
     // // =========================
+    
     // // Sticky Nav on Scroll
     // // =========================
     // const nav = document.getElementById('mainNav');

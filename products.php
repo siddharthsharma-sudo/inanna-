@@ -1,5 +1,5 @@
 <?php
-// products.php - robust PHP-side filtering version (drop-in replacement)
+// products.php - robust PHP-side filtering version with pagination (drop-in replacement)
 // Uses your original design, but builds categories from product rows and filters in PHP
 require_once __DIR__ . '/includes/db.php';
 
@@ -9,7 +9,7 @@ $selectedGender   = isset($_GET['gender']) && $_GET['gender'] !== '' ? trim($_GE
 
 // -------- Fetch all products (we will filter in PHP) --------
 try {
-    $stmt = $pdo->query("SELECT id, sku, name, price, stock, image, category_slug, categories, gender FROM products ORDER BY created_at DESC");
+    $stmt = $pdo->query("SELECT id, sku, name, price, stock, image, category_slug, categories, gender, created_at FROM products ORDER BY created_at DESC");
     $allProducts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (Exception $e) {
     $allProducts = [];
@@ -157,7 +157,28 @@ if ($selectedCategory) {
     $products = $filtered;
 }
 
-// Now we have $products filtered reliably. Include header and render (design unchanged).
+// ------------------ PAGINATION (apply after filters) ------------------
+$perPage = 16;
+$currentPage = isset($_GET['p']) ? (int)$_GET['p'] : 1;
+if ($currentPage < 1) $currentPage = 1;
+
+$totalItems = count($products);
+$totalPages = $totalItems > 0 ? (int)ceil($totalItems / $perPage) : 1;
+if ($currentPage > $totalPages) $currentPage = $totalPages;
+
+$offset = ($currentPage - 1) * $perPage;
+$pagedProducts = array_slice($products, $offset, $perPage);
+
+// helper to build page links preserving category & gender
+function build_page_url($page) {
+    $params = [];
+    if (isset($_GET['category']) && $_GET['category'] !== '') $params['category'] = $_GET['category'];
+    if (isset($_GET['gender']) && $_GET['gender'] !== '') $params['gender'] = $_GET['gender'];
+    $params['p'] = $page;
+    return 'products.php' . (count($params) ? ('?' . http_build_query($params)) : '');
+}
+
+// Now we have $pagedProducts. Include header and render (design unchanged).
 include __DIR__ . '/includes/header.php';
 ?>
 
@@ -221,19 +242,19 @@ include __DIR__ . '/includes/header.php';
           <?php endforeach; ?>
         </div>
         <div class="ms-3">
-          <span class="small text-white">Showing <strong><?php echo count($products); ?></strong> products</span>
+          <span class="small text-white">Showing <strong><?php echo ($totalItems>0) ? ($offset+1) : 0; ?></strong> - <strong><?php echo ($totalItems>0) ? min($offset + count($pagedProducts), $totalItems) : 0; ?></strong> of <strong><?php echo $totalItems; ?></strong> products</span>
         </div>
       </div>
     </div>
 
     <div class="row g-4">
-      <?php if (empty($products)): ?>
+      <?php if (empty($pagedProducts)): ?>
         <div class="col-12">
           <div class="text-center py-5 text-muted">No products found.</div>
         </div>
       <?php endif; ?>
 
-      <?php foreach ($products as $p): ?>
+      <?php foreach ($pagedProducts as $p): ?>
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="card product-card h-100 shadow-sm">
             <div class="product-tile">
@@ -272,6 +293,51 @@ include __DIR__ . '/includes/header.php';
         </div>
       <?php endforeach; ?>
     </div>
+
+    <!-- Pagination Controls -->
+    <?php if ($totalPages > 1): ?>
+      <nav aria-label="Products pagination" class="mt-4">
+        <ul class="pagination justify-content-center">
+          <?php
+            // Build window of pages
+            $show = 7;
+            $start = max(1, $currentPage - intval($show/2));
+            $end = min($totalPages, $start + $show - 1);
+            if ($end - $start + 1 < $show) {
+                $start = max(1, $end - $show + 1);
+            }
+          ?>
+          <li class="page-item <?php if ($currentPage <= 1) echo 'disabled'; ?>">
+            <a class="page-link" href="<?php echo $currentPage > 1 ? build_page_url($currentPage - 1) : '#'; ?>" aria-label="Previous">‹</a>
+          </li>
+
+          <?php if ($start > 1): ?>
+            <li class="page-item"><a class="page-link" href="<?php echo build_page_url(1); ?>">1</a></li>
+            <?php if ($start > 2): ?>
+              <li class="page-item disabled"><span class="page-link">…</span></li>
+            <?php endif; ?>
+          <?php endif; ?>
+
+          <?php for ($i = $start; $i <= $end; $i++): ?>
+            <li class="page-item <?php if ($i == $currentPage) echo 'active'; ?>">
+              <a class="page-link" href="<?php echo build_page_url($i); ?>"><?php echo $i; ?></a>
+            </li>
+          <?php endfor; ?>
+
+          <?php if ($end < $totalPages): ?>
+            <?php if ($end < $totalPages - 1): ?>
+              <li class="page-item disabled"><span class="page-link">…</span></li>
+            <?php endif; ?>
+            <li class="page-item"><a class="page-link" href="<?php echo build_page_url($totalPages); ?>"><?php echo $totalPages; ?></a></li>
+          <?php endif; ?>
+
+          <li class="page-item <?php if ($currentPage >= $totalPages) echo 'disabled'; ?>">
+            <a class="page-link" href="<?php echo $currentPage < $totalPages ? build_page_url($currentPage + 1) : '#'; ?>" aria-label="Next">›</a>
+          </li>
+        </ul>
+      </nav>
+    <?php endif; ?>
+
   </div>
 </div>
 
@@ -295,6 +361,8 @@ include __DIR__ . '/includes/header.php';
       var url = new URL(window.location.href);
       if (!cat) url.searchParams.delete('category'); else url.searchParams.set('category', cat);
       if (!gender) url.searchParams.delete('gender'); else url.searchParams.set('gender', gender);
+      // reset to first page on filter change
+      url.searchParams.delete('p');
       window.location.href = url.toString();
     }
 

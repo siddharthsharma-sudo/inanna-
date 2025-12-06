@@ -469,6 +469,10 @@ include __DIR__ . '/includes/header.php';
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
+
+  .spotlight-image img{
+    object-fit:cover;
+  }
 }
 </style>
 
@@ -484,7 +488,7 @@ include __DIR__ . '/includes/header.php';
       <span>TILL  — NO PLUS ONE — NO PLUS ONE — NO PLUS ONE — NO PLUS ONE —</span>
       <span aria-hidden="true">NO PLUS ONE — NO PLUS ONE — NO PLUS ONE — NO PLUS ONE — NO PLUS ONE —</span>
     </div>
-  </section>
+  </section>
 
   <!-- =========================
        SHOP THE LOOK (HOTSPOTS)
